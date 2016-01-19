@@ -1,0 +1,40 @@
+import os
+database = input("files locations:\n")
+os.chdir(database)
+file_list = os.listdir(os.getcwd())
+source_file = []
+for eachone in file_list:
+    if not eachone.find("grorp") == -1:
+        if not eachone.find("txt") == -1:
+            source_file.append(eachone)
+group_data = []
+group_data2 = []
+data = []
+for eachfile in source_file:
+    with open(eachfile) as temp:
+        data = temp.readline()
+    group_data.append(data)
+for eachitem in group_data:
+    group_data2.append(eachitem.split(","))
+group_list = []
+for item in source_file:
+    group_list.append(item[6:][:-4])
+source_data = []
+temp = open("source_data.txt")
+for eachline in temp:
+    source_data.append(eachline)
+temp.close()
+for i in range(len(group_list)):
+    group_info = group_data2[i]
+    for a in range(len(group_info)):
+        index = int(group_info[a])
+        source_data[index] = source_data[index][:-2]+","+group_list[i]+"\n"
+out = open("result.txt", "w")
+for every in source_data:
+    out.write(every)
+out.close()
+print(locals())
+
+
+
+
